@@ -22,8 +22,6 @@ from tsksvm_step09_results import *
 grid = [{'numInp': [160, 161], 'cnum': [x for x in range(2,3)], 'svrc': [1.00], 'svrp': [x for x in np.arange(0.5,0.6,0.1)]}]
 pg_list = list(ParameterGrid(grid))
 
-import pdb; pdb.set_trace()
-
 opt = float("-inf")
 L = []
 df = pd.DataFrame(L)
