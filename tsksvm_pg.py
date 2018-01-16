@@ -20,7 +20,7 @@ from tsksvm_step09_results import *
 
 # param = {'cnum':7, 'svrc':2.40, 'svrp':0.05}
 #grid = [{'numInp': [160, 161], 'cnum': [x for x in range(2,3)], 'svrc': [1.00], 'svrp': [x for x in np.arange(0.5,0.6,0.1)]}]
-grid = [{'numInp': [1, 250], 'cnum': [x for x in range(2,4)], 'svrc': [1.00], 'svrp': [x for x in np.arange(0.5,0.6,0.1)]}]
+grid = [{'numInp': [x for x in range(1,251)], 'cnum': [x for x in range(2,4)], 'svrc': [1.00], 'svrp': [x for x in np.arange(0.5,0.6,0.1)]}]
 pg_list = list(ParameterGrid(grid))
 
 opt = float("-inf")
