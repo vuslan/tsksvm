@@ -1,8 +1,5 @@
 # tsksvm is the package of this project
 
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.svm import SVR
 import skfuzzy
@@ -144,36 +141,6 @@ def peptide2scales(numPeptides,scales):
                 idx = j*nFeatures + k
                 datin[i,idx] = scales[k,aa]
     return pd.DataFrame(datin)
-
-
-# input: scales_file (as num_of_index x num_of_aa)
-# example file: coepra-scales-2.csv
-# output: np_scales (numpy array of scales)
-def preprocess_aa_scales(scales_file):
-    # read the scales from the csv file as a dataframe
-    # rows: num of scales
-    # cols: num of aa (=20)
-    df_scales = pd.read_csv(scales_file, header=None)
-    # . transpose dataframe so that
-    # samples should be aa and features should be aaindex
-    # rows: num of aa (=20)
-    # cols: num of scales
-    tp_df_scales = df_scales.transpose()
-    # convert dataframe to numpy array
-    np_scales = np.array(tp_df_scales)
-    # . this is minmax scaler object that transforms features
-    # by scaling each feature to a given range.
-    # . the default range of tranformed data is (0, 1).
-    # . http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html
-    scaler = MinMaxScaler()
-    # compute the minimum and maximum aaindex values to be used for later scaling.
-    scaler.fit(np_scales)
-    # convert aaindex values to minmax values
-    tf_np_scales = scaler.transform(np_scales)
-    # convert to the input file format (as num_of_index x num_of_aa)
-    tp_tf_np_scales = tf_np_scales.transpose()
-    return tp_tf_np_scales
-
 
 def load_dataset(data_file):
     data=pd.read_csv(data_file, sep=' ', header=None)
