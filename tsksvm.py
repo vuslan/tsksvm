@@ -109,46 +109,6 @@ def predictfsvm(X,y,M,sigma,C,bias):
        out = out + [f]
    return out
 
-
-# The inital set of amino acids and their numerical values
-def aa2int(aa):
-    aalist = "ARNDCQEGHILKMFPSTWYVBZX*-"
-    aalist = list(aalist)
-    return aalist.index(aa)
-
-
-def pep2mat(peptides):
-    list_of_peptides = list(peptides)
-    num_of_peptides = len(list_of_peptides)
-    pepsize = len(list_of_peptides[0])
-    matrix = np.ones((num_of_peptides,pepsize))
-    for i in range(num_of_peptides):
-        peptide = list(list_of_peptides[i])
-        for j in range(pepsize):
-            matrix[i,j] = aa2int(peptide[j])
-    return matrix
-
-
-def peptide2scales(numPeptides,scales):
-    nSamples = numPeptides.shape[0]
-    nAA = numPeptides.shape[1]
-    nFeatures = scales.shape[0]
-    datin = -1*np.ones((nSamples,nFeatures*nAA))
-    for i in range(nSamples):
-        for j in range(nAA):
-            aa = int(numPeptides[i,j])
-            for k in range(nFeatures):
-                idx = j*nFeatures + k
-                datin[i,idx] = scales[k,aa]
-    return pd.DataFrame(datin)
-
-def load_dataset(data_file):
-    data=pd.read_csv(data_file, sep=' ', header=None)
-    txtPeptides = data[0]
-    numPeptides = pep2mat(txtPeptides); # n: make numerical
-    y = pd.DataFrame(data[1])
-    return numPeptides, y
-
 def mcfs(trnin, num_fea):
 
     from skfeature.utility import construct_W
